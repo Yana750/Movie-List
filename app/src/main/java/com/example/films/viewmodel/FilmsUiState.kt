@@ -70,4 +70,7 @@ class FilmsViewModel : ViewModel() {
                 .sortedBy { it.localized_name }
         }
     }
+    fun refreshFilms() {
+        loadFilms()
+    }
 }

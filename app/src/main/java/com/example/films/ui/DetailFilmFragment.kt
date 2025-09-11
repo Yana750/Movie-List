@@ -80,6 +80,14 @@ class DetailFilmFragment : Fragment() {
             textSize = 20f
             setTextColor(Color.WHITE)
             typeface = ResourcesCompat.getFont(context, R.font.roboto_regular)
+            maxLines = 2
+            ellipsize = android.text.TextUtils.TruncateAt.END
+            layoutParams = LinearLayout.LayoutParams(
+                0,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                weight = 1f
+            }
         }
 
         header.addView(backButton)
@@ -125,7 +133,7 @@ class DetailFilmFragment : Fragment() {
             text = film.localized_name
             textSize = 26f
             typeface = ResourcesCompat.getFont(context, R.font.roboto_bold)
-            setPadding(16.dp, 8.dp, 16.dp, 8.dp)
+            setPadding(16.dp, 16.dp, 16.dp, 8.dp)
         }
         root.addView(localizedTitle)
 

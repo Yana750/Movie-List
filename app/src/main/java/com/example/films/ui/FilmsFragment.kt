@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.films.R
 import com.example.films.view.FilmsAdapter
 import com.example.films.viewmodel.FilmsViewModel
@@ -29,6 +30,7 @@ class FilmsFragment : Fragment() {
     private lateinit var genresTitle: TextView
     private lateinit var genresList: ListView
     private lateinit var recyclerView: RecyclerView
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreateView(
         inflater: android.view.LayoutInflater,
@@ -58,6 +60,7 @@ class FilmsFragment : Fragment() {
         }
         root.addView(appBar)
 
+        // Жанры
         genresTitle = TextView(requireContext()).apply {
             text = "Жанры"
             textSize = 20f
@@ -70,6 +73,7 @@ class FilmsFragment : Fragment() {
         genresList = ListView(requireContext()).apply { visibility = View.GONE }
         root.addView(genresList)
 
+        // Заголовок фильмов
         val filmsTitle = TextView(requireContext()).apply {
             text = "Фильмы"
             textSize = 20f
@@ -78,26 +82,43 @@ class FilmsFragment : Fragment() {
         }
         root.addView(filmsTitle)
 
+        // Прогрессбар
         progressBar = ProgressBar(requireContext()).apply { visibility = View.GONE }
         root.addView(progressBar)
 
+        // SwipeRefreshLayout
+        swipeRefreshLayout = SwipeRefreshLayout(requireContext()).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
+            setOnRefreshListener {
+                // Вызов метода обновления данных
+                viewModel.refreshFilms()
+            }
+        }
+
+        // RecyclerView
         recyclerView = RecyclerView(requireContext()).apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = this@FilmsFragment.adapter
             setPadding(16.dp, 16.dp, 16.dp, 16.dp)
             clipToPadding = false
         }
-        root.addView(recyclerView)
 
+        swipeRefreshLayout.addView(recyclerView)
+        root.addView(swipeRefreshLayout)
         observeViewModel()
-
         return root
     }
 
     private fun observeViewModel() {
         lifecycleScope.launch {
             viewModel.uiState.collectLatest { state ->
+                // Прогрессбар и SwipeRefreshLayout
                 progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
+                swipeRefreshLayout.isRefreshing = state.isLoading
+
                 genresTitle.visibility = if (!state.isLoading) View.VISIBLE else View.GONE
                 recyclerView.visibility = if (!state.isLoading) View.VISIBLE else View.GONE
 

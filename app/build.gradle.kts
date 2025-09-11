@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.androidx.gridlayout)
     implementation (libs.glide)
+    implementation(libs.androidx.swiperefreshlayout)
     kapt ("com.github.bumptech.glide:compiler:5.0.4")
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
