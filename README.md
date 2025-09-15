@@ -23,7 +23,7 @@
 https://s3-eu-west-1.amazonaws.com/sequeniatesttask/films.json
 ## Установка
 1. Клонировать репозиторий
-`git clone <ссылка на репозиторий>`
+`git clone <https://github.com/Yana750/Movie-List>`
 2. Открыть проект в Android Studio
 3. Синхронизировать Gradle
 4. Запустить на эмуляторе или устройстве
