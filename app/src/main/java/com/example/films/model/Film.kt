@@ -9,9 +9,9 @@ data class Film(
     val localized_name: String,
     val name: String,
     val year: Int,
-    val rating: Double,
-    val image_url: String,
-    val description: String,
+    val rating: Double?,
+    val image_url: String?,
+    val description: String?,
     val genres: List<String>
 ) : Parcelable
 

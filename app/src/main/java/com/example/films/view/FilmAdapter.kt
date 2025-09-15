@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.films.R
@@ -12,13 +14,13 @@ import com.example.films.model.Film
 
 class FilmsAdapter(
     private val onFilmClick: (Film) -> Unit
-) : RecyclerView.Adapter<FilmsAdapter.FilmViewHolder>() {
+) : ListAdapter<Film, FilmsAdapter.FilmViewHolder>(DiffCallback) {
+    object DiffCallback : DiffUtil.ItemCallback<Film>() {
+        override fun areItemsTheSame(oldItem: Film, newItem: Film): Boolean =
+            oldItem.id == newItem.id
 
-    private var films: List<Film> = emptyList()
-
-    fun submitList(films: List<Film>) {
-        this.films = films
-        notifyDataSetChanged()
+        override fun areContentsTheSame(oldItem: Film, newItem: Film): Boolean =
+            oldItem == newItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmViewHolder {
@@ -28,23 +30,20 @@ class FilmsAdapter(
     }
 
     override fun onBindViewHolder(holder: FilmViewHolder, position: Int) {
-        val film = films[position]
-        holder.title.text = film.localized_name
-        holder.image.load(film.image_url) {
-            placeholder(R.drawable.img)
-            error(R.drawable.img)
-        }
-
-        // Колбэк клика безопасно передаем фрагменту
-        holder.itemView.setOnClickListener {
-            onFilmClick(film)
-        }
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = films.size
+    inner class FilmViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val image: ImageView = view.findViewById(R.id.filmImage)
+        private val title: TextView = view.findViewById(R.id.filmsTitle)
 
-    class FilmViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image: ImageView = view.findViewById(R.id.filmImage)
-        val title: TextView = view.findViewById(R.id.filmsTitle)
+        fun bind(film: Film) {
+            title.text = film.localized_name
+            image.load(film.image_url) {
+                placeholder(R.drawable.img)
+                error(R.drawable.img)
+            }
+            itemView.setOnClickListener { onFilmClick(film) }
+        }
     }
 }

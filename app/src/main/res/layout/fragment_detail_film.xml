@@ -29,6 +29,7 @@
             android:layout_height="201dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
+            android:paddingTop="16dp"
             android:scaleType="centerCrop"
             android:clipToOutline="true"
             android:background="@drawable/rounded_corner_4dp" />
@@ -43,7 +44,8 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:paddingTop="8dp"
-            android:text="Локализованное название" />
+            android:text="Локализованное название"
+            android:textColor="@color/black"/>
 
         <!-- Жанры и год -->
         <TextView
@@ -81,6 +83,7 @@
             android:paddingEnd="16dp"
             android:paddingTop="8dp"
             android:paddingBottom="16dp"
-            android:text="Описание фильма"/>
+            android:text="Описание фильма"
+            android:textColor="@color/black"/>
     </LinearLayout>
 </ScrollView>

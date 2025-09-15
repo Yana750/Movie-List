@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="170dp"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     card_view:cardCornerRadius="8dp"
     card_view:cardElevation="0dp"
+    card_view:cardBackgroundColor="@android:color/transparent"
     android:clickable="true"
     android:focusable="true"
     android:clipChildren="true"
@@ -16,7 +18,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Изображение фильма с реальными скруглёнными углами -->
+        <!-- Изображение фильма -->
         <ImageView
             android:id="@+id/filmImage"
             android:layout_width="match_parent"
@@ -34,6 +36,7 @@
             android:padding="8dp"
             android:text="Название фильма"
             android:textSize="16sp"
+            android:textColor="@android:color/black"
             android:maxLines="2"
             android:ellipsize="end"
             android:fontFamily="@font/roboto_bold" />

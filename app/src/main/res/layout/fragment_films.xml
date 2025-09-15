@@ -1,7 +1,7 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
@@ -10,7 +10,8 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
 
             <!-- AppBar -->
             <TextView
@@ -26,6 +27,17 @@
                 android:maxLines="2"
                 android:fontFamily="@font/roboto_bold"/>
 
+            <!-- Заголовок "Жанры" -->
+            <TextView
+                android:id="@+id/genresTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="Жанры"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/roboto_bold"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/genresRecyclerView"
                 android:layout_width="match_parent"
@@ -39,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:text="Фильмы"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:fontFamily="@font/roboto_bold"/>
 
@@ -54,4 +67,15 @@
                 android:paddingBottom="8dp"/>
         </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <ProgressBar
+        android:id="@+id/initialProgress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:indeterminateTint="#FFC967"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
